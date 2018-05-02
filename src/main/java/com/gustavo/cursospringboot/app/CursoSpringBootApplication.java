@@ -1,4 +1,4 @@
-package com.gustavo.cursospringboot.demo;
+package com.gustavo.cursospringboot.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

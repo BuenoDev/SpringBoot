@@ -1,4 +1,4 @@
-package com.gustavo.cursospringboot.demo;
+package com.gustavo.cursospringboot.app;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
