@@ -1,24 +1,24 @@
 package com.gustavo.cursospringboot.app.services;
 
-import com.gustavo.cursospringboot.app.domain.Categoria;
-import com.gustavo.cursospringboot.app.repositories.CategoriaRepository;
-import org.hibernate.ObjectNotFoundException;
+import com.gustavo.cursospringboot.app.domain.Cliente;
+import com.gustavo.cursospringboot.app.exceptions.ObjectNotFoundException;
+import com.gustavo.cursospringboot.app.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class CategoriaService {
+public class ClienteService {
 
     @Autowired
-    private CategoriaRepository repository;
+    private ClienteRepository repository;
 
-    public Categoria buscar(Integer id){
-        Optional<Categoria> obj = repository.findById(id);
+    public Cliente buscar(Integer id){
+        Optional<Cliente> obj = repository.findById(id);
         //return obj.orElse(null);
-        return obj.orElseThrow(()->new RuntimeException(
-                "Objeto nao encontrado! Id:"+id+", tipo:"+Categoria.class.getName()
+        return obj.orElseThrow(()->new ObjectNotFoundException(
+                "Objeto nao encontrado! Id:"+id+", tipo:"+Cliente.class.getName()
         ));
     }
 }

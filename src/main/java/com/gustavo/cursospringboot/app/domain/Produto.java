@@ -1,19 +1,45 @@
 package com.gustavo.cursospringboot.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Produto implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    private Double preço;
+    private Double preco;
 
-    public Produto(){}
+    @JsonBackReference
+    @ManyToMany
+    @JoinTable(name="produto_categoria",
+        joinColumns = @JoinColumn(name="produto_id"),
+        inverseJoinColumns = @JoinColumn(name="categoria_id")
+    )
+    private List<Categoria> categorias = new ArrayList<>();
 
-    public Produto(Integer id, String nome, Double preço) {
+    public Produto() {
+    }
+
+    public Produto(Integer id, String nome, Double preco) {
         this.id = id;
         this.nome = nome;
-        this.preço = preço;
+        this.preco = preco;
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
     }
 
     public Integer getId() {
@@ -33,11 +59,11 @@ public class Produto implements Serializable {
     }
 
     public Double getPreco() {
-        return preço;
+        return preco;
     }
 
-    public void setPreco(Double preço) {
-        this.preço = preço;
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 
     @Override
@@ -47,12 +73,12 @@ public class Produto implements Serializable {
         Produto produto = (Produto) o;
         return Objects.equals(id, produto.id) &&
                 Objects.equals(nome, produto.nome) &&
-                Objects.equals(preço, produto.preço);
+                Objects.equals(preco, produto.preco);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, nome, preço);
+        return Objects.hash(id, nome, preco);
     }
 }

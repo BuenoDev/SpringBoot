@@ -1,14 +1,14 @@
 package com.gustavo.cursospringboot.app.domain.enums;
 
-public enum TipoCliente {
-
-    PESSOA_FISICA(1,"Pessoa Física"),
-    PESSOA_JURIDICA(2,"Pessoa Jurídica");
+public enum EstadoPagamento {
+    PENDENTE(1,"Pendente"),
+    QUITADO(2,"Quitado"),
+    CANCELADO(3,"Cancelado");
 
     private Integer cod;
-    private  String desc;
+    private String desc;
 
-    TipoCliente(Integer cod, String desc) {
+    EstadoPagamento(Integer cod, String desc) {
         this.cod = cod;
         this.desc = desc;
     }
@@ -21,11 +21,12 @@ public enum TipoCliente {
         return desc;
     }
 
-    public static TipoCliente toEnum(Integer cod){
+    public static EstadoPagamento toEnum(Integer cod){
         if(cod == null) return null;
-        for(TipoCliente tipo : TipoCliente.values()){
-            if(cod.equals(tipo.getCod())) return tipo;
+        for(EstadoPagamento estado : EstadoPagamento.values()){
+            if(cod.equals(estado.getCod())) return estado;
         }
         throw new IllegalArgumentException("Id Inválido:"+cod);
     }
+
 }
