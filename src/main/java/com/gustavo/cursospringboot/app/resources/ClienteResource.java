@@ -1,8 +1,12 @@
 package com.gustavo.cursospringboot.app.resources;
 
+import com.gustavo.cursospringboot.app.domain.Cliente;
+import com.gustavo.cursospringboot.app.services.ClienteService;
 
 import com.gustavo.cursospringboot.app.domain.Cliente;
 import com.gustavo.cursospringboot.app.services.ClienteService;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+
 @RequestMapping(value = "/cliente")
 public class ClienteResource {
 
