@@ -2,6 +2,9 @@ package com.gustavo.cursospringboot.app.domain;
 
 import com.gustavo.cursospringboot.app.domain.enums.EstadoPagamento;
 
+import javax.persistence.Entity;
+
+@Entity
 public class PagamentoComCartão extends Pagamento {
 
     private Integer numeroDeParcelas;

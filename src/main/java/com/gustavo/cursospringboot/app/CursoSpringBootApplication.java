@@ -1,6 +1,7 @@
 package com.gustavo.cursospringboot.app;
 
 import com.gustavo.cursospringboot.app.domain.*;
+import com.gustavo.cursospringboot.app.domain.enums.EstadoPagamento;
 import com.gustavo.cursospringboot.app.domain.enums.TipoCliente;
 import com.gustavo.cursospringboot.app.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +34,10 @@ public class CursoSpringBootApplication implements CommandLineRunner {
     private ClienteRepository clienteRepository;
     @Autowired
     private EnderecoRepository enderecoRepository;
+    @Autowired
+    private PedidoRepository pedidoRepository;
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(CursoSpringBootApplication.class, args);
@@ -89,6 +95,22 @@ public class CursoSpringBootApplication implements CommandLineRunner {
         clienteRepository.save(cli1);
         enderecoRepository.saveAll(Arrays.asList(e1,e2));
 
+        // Pedidos
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
+        Pedido ped1 = new Pedido(null,sdf.parse("30/09/2017 10:32"),cli1,e1);
+        Pedido ped2 = new Pedido(null,sdf.parse("10/10/2017 19:35"),cli1,e2);
+
+        Pagamento pgt1 = new PagamentoComCartão(null,EstadoPagamento.QUITADO,ped1,6);
+        ped1.setPagamento(pgt1);
+
+        Pagamento pgt2 = new PagamentoComBoleto(null,EstadoPagamento.PENDENTE,ped2,sdf.parse("20/10/2017 00:00"),null);
+        ped2.setPagamento(pgt2);
+
+        cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+
+        pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
+        pagamentoRepository.saveAll(Arrays.asList(pgt1,pgt2));
     }
 }

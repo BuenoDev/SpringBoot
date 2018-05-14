@@ -21,19 +21,53 @@ public class Pedido implements Serializable {
     private Pagamento pagamento;
 
     @ManyToOne
-    @JoinColumn(name = "cliente")
+    @JoinColumn(name = "cliente_id")
     @JsonBackReference
     private Cliente cliente;
 
+    @ManyToOne
+    @JoinColumn(name = "endereco_de_entrega_id")
+    @JsonBackReference
     private Endereco enderecoDeEntrega;
 
     public Pedido(){}
 
-    public Pedido(Integer id, Date instante, Pagamento pagamento, Cliente cliente, Endereco enderecoDeEntrega) {
+    public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
         Id = id;
         this.instante = instante;
-        this.pagamento = pagamento;
         this.cliente = cliente;
+        this.enderecoDeEntrega = enderecoDeEntrega;
+    }
+
+    public Date getInstante() {
+        return instante;
+    }
+
+    public void setInstante(Date instante) {
+        this.instante = instante;
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Endereco getEnderecoDeEntrega() {
+        return enderecoDeEntrega;
+    }
+
+    public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
         this.enderecoDeEntrega = enderecoDeEntrega;
     }
 
