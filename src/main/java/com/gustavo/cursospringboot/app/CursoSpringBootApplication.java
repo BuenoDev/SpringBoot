@@ -38,6 +38,8 @@ public class CursoSpringBootApplication implements CommandLineRunner {
     private PedidoRepository pedidoRepository;
     @Autowired
     private PagamentoRepository pagamentoRepository;
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(CursoSpringBootApplication.class, args);
@@ -112,5 +114,20 @@ public class CursoSpringBootApplication implements CommandLineRunner {
 
         pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
         pagamentoRepository.saveAll(Arrays.asList(pgt1,pgt2));
+
+        //itens e pedidos
+
+        ItemPedido ip1 = new ItemPedido(ped1,produtos.get(0),0.00,1,2000.00);
+        ItemPedido ip2 =  new ItemPedido(ped1,produtos.get(1),0.0,2,80.00);
+        ItemPedido ip3 = new ItemPedido(ped2,produtos.get(2),0.00,2,800.00);
+
+        ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+        ped2.getItens().add(ip3);
+
+        produtos.get(0).getItens().add(ip1);
+        produtos.get(1).getItens().add(ip3);
+        produtos.get(2).getItens().add(ip2);
+
+        itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
     }
 }
