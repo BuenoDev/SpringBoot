@@ -1,5 +1,7 @@
 package com.gustavo.cursospringboot.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -8,6 +10,7 @@ import java.io.Serializable;
 public class ItemPedido implements Serializable {
 
     @EmbeddedId
+    @JsonIgnore
     private ItemPedidoPK id;
 
     private Double desconto;
@@ -27,9 +30,11 @@ public class ItemPedido implements Serializable {
         return id;
     }
 
+    @JsonIgnore
     public Pedido getPedido(){
         return this.id.getPedido();
     }
+
 
     public Produto getProduto(){
         return this.id.getProduto();
