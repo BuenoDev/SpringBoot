@@ -1,6 +1,6 @@
 package com.gustavo.cursospringboot.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gustavo.cursospringboot.app.domain.enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -18,7 +18,7 @@ public abstract class Pagamento implements Serializable {
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
-    @JsonBackReference
+    @JsonIgnore
     private Pedido pedido;
 
     public Pagamento(){}

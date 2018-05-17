@@ -1,6 +1,6 @@
 package com.gustavo.cursospringboot.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gustavo.cursospringboot.app.domain.enums.TipoCliente;
 
 import javax.persistence.*;
@@ -18,7 +18,7 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipo;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
@@ -27,7 +27,7 @@ public class Cliente implements Serializable {
     private Set<String> telefones = new HashSet<>();
 
     @OneToMany(mappedBy = "cliente")
-    @JsonBackReference
+    @JsonIgnore
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente(){}
