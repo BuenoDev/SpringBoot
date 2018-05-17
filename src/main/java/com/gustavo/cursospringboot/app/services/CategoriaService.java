@@ -2,7 +2,6 @@ package com.gustavo.cursospringboot.app.services;
 
 import com.gustavo.cursospringboot.app.domain.Categoria;
 import com.gustavo.cursospringboot.app.repositories.CategoriaRepository;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +19,10 @@ public class CategoriaService {
         return obj.orElseThrow(()->new RuntimeException(
                 "Objeto nao encontrado! Id:"+id+", tipo:"+Categoria.class.getName()
         ));
+    }
+
+    public Categoria insert(Categoria obj){
+        obj.setId(null);
+        return repository.save(obj);
     }
 }
