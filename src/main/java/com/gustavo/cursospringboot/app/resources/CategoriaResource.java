@@ -1,6 +1,7 @@
 package com.gustavo.cursospringboot.app.resources;
 
 import com.gustavo.cursospringboot.app.domain.Categoria;
+import com.gustavo.cursospringboot.app.dto.CategoriaDTO;
 import com.gustavo.cursospringboot.app.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/categoria")
@@ -15,6 +18,20 @@ public class CategoriaResource {
 
     @Autowired
     private CategoriaService service;
+
+    @RequestMapping( method = RequestMethod.GET)
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
+        List<Categoria> list = service.findAll();
+
+        //Forma ensinada pelo curso
+        List<CategoriaDTO> listDTO = list.stream().map(categoria -> new CategoriaDTO(categoria)).collect(Collectors.toList());
+
+        //Como eu teria feito
+        //List<CategoriaDTO> listDTO = new ArrayList<>();
+        //for(Categoria cat : list) listDTO.add(new CategoriaDTO(cat));
+
+        return ResponseEntity.ok().body(listDTO);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Categoria> find(@PathVariable Integer id) {
