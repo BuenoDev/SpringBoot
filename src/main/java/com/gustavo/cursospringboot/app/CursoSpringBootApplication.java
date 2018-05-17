@@ -9,7 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,6 +46,7 @@ public class CursoSpringBootApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
 
         //Instanciando categorias
         List<Categoria> categorias = new ArrayList<Categoria>();
