@@ -1,6 +1,7 @@
 package com.gustavo.cursospringboot.app.services;
 
 import com.gustavo.cursospringboot.app.domain.Categoria;
+import com.gustavo.cursospringboot.app.dto.CategoriaDTO;
 import com.gustavo.cursospringboot.app.exceptions.DataIntegrityExeption;
 import com.gustavo.cursospringboot.app.exceptions.ObjectNotFoundException;
 import com.gustavo.cursospringboot.app.repositories.CategoriaRepository;
@@ -53,5 +54,9 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page,Integer linesPerPage,String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page,linesPerPage,Sort.Direction.valueOf(direction),orderBy);
         return repository.findAll(pageRequest);
+    }
+
+    public Categoria fromDTO(CategoriaDTO DTO){
+        return new Categoria(DTO.getId(),DTO.getNome());
     }
 }
