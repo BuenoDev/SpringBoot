@@ -4,6 +4,7 @@ import com.gustavo.cursospringboot.app.domain.Categoria;
 import com.gustavo.cursospringboot.app.dto.CategoriaDTO;
 import com.gustavo.cursospringboot.app.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,7 +25,8 @@ public class CategoriaResource {
         List<Categoria> list = service.findAll();
 
         //Forma ensinada pelo curso
-        List<CategoriaDTO> listDTO = list.stream().map(categoria -> new CategoriaDTO(categoria)).collect(Collectors.toList());
+        List<CategoriaDTO> listDTO = list.stream().map(
+                categoria -> new CategoriaDTO(categoria)).collect(Collectors.toList());
 
         //Como eu teria feito
         //List<CategoriaDTO> listDTO = new ArrayList<>();
@@ -63,5 +65,15 @@ public class CategoriaResource {
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/page",method = RequestMethod.GET)
+    public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(value = "page",defaultValue = "0") Integer page,
+                                                       @RequestParam(value = "linesPerPage",defaultValue = "24") Integer linesPerPage,
+                                                       @RequestParam(value = "orderBy",defaultValue = "nome") String orderBy,
+                                                       @RequestParam(value = "direction",defaultValue = "ASC") String direction){
+        Page<Categoria> list  = service.findPage(page, linesPerPage, orderBy, direction);
+        Page<CategoriaDTO> listDTO = list.map(categoria -> new CategoriaDTO(categoria));
+        return ResponseEntity.ok().body(listDTO);
     }
 }
