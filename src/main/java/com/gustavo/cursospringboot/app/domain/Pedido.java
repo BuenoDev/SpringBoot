@@ -1,12 +1,9 @@
 package com.gustavo.cursospringboot.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -29,12 +26,13 @@ public class Pedido implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    @JsonManagedReference
+    //@JsonManagedReference
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "endereco_de_entrega_id")
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonIgnore
     private Endereco enderecoDeEntrega;
 
     @OneToMany(mappedBy = "id.pedido")
